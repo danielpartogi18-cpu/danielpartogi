@@ -1,29 +1,28 @@
-# RuangAwan — Cloud storage starter
+# RuangAwan — Cloud storage
 
-RuangAwan is a cloud-drive application starter with a distinct visual identity, built with React + Vite and Supabase Auth, private Storage, and an authenticated Edge Function.
+RuangAwan is a cloud-drive style application built with React + Vite, Cloudflare Workers, D1, R2, and Better Auth.
 
-## Live Vercel deployment
-
-- URL: https://ruangawan-cloud.vercel.app
+## Live frontend
+- https://ruangawan-cloud.vercel.app
 - Vercel project: `ruangawan-cloud`
-- Project is deployed and build status is READY.
-- The live site currently shows its connection setup page. Login, uploads, and downloads are not enabled until a dedicated Supabase project is configured.
-- A custom purchased domain has not yet been registered. The Vercel-provided domain is live.
 
-## Included in this repository
+## Current migration status
+- Frontend source is migrated from Supabase SDK to Better Auth and same-origin API calls.
+- Cloudflare Worker, D1 schema, R2 file API, and Vercel API proxy source are committed.
+- **Cloudflare resources and Worker are not deployed yet.** A D1 database ID and Google OAuth credentials must be configured.
+- Until the Worker is deployed and `CLOUDFLARE_WORKER_URL` is set in Vercel, API routes return HTTP 503 and login/upload/download will not work.
+- Existing Supabase projects have not been modified or deleted.
 
-- Email/password sign-in and Google OAuth UI via Supabase Auth.
-- Private per-user file namespace.
-- Upload any browser-supported file type to private Supabase Storage.
-- Listing, search, favorites, trash/restore, and download actions.
-- RLS-protected file metadata and storage policies.
-- `file-gateway` Edge Function to produce short-lived private download links.
-- Responsive Indonesian UI for desktop and mobile.
+## Included
+- Email/password authentication and Google OAuth via Better Auth.
+- Private R2 object storage with per-user object keys.
+- D1 metadata and user isolation.
+- List, upload, download, favorite, trash/restore, and permanent delete.
+- Vercel API proxy so auth cookies remain first-party on the Vercel domain.
+- Initial upload limit: 90 MiB per file.
 
-## Infrastructure blocker
+## Setup
+Follow `worker/README.md`. Set `CLOUDFLARE_WORKER_URL` in Vercel only after deploying the Worker and creating the resources.
 
-The connected Supabase Free organization currently has two active projects and has hit the two-project free-plan limit. No existing project was paused or altered because the known projects may be in use. The Supabase Edge Function and SQL migration are therefore committed as source but are **not deployed** yet.
-
-Vercel GitHub auto-linking also requires a GitHub Login Connection in Vercel. The current initial production deployment was created from source files directly; future push-to-deploy automation is not yet configured.
-
-For setup and deployment instructions, see `SETUP.md`.
+## Build
+`npm install` then `npm run build`.
