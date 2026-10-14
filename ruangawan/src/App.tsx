@@ -103,7 +103,7 @@ export default function App() {
   };
   const googleSignIn = async () => {
     setAuthError('');
-    try { const result = await authClient.signIn.social({ provider: 'google', callbackURL: window.location.origin }); if (result.error) setAuthError(result.error.message); }
+    try { const result = await authClient.signIn.social({ provider: 'google', callbackURL: window.location.origin }); if (result.error) setAuthError(result.error.message || 'Permintaan autentikasi gagal.'); }
     catch (e) { setAuthError(e instanceof Error ? e.message : 'Login Google gagal.'); }
   };
   const signOut = async () => { await authClient.signOut(); setFiles([]); setPage('all'); };
