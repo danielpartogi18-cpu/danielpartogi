@@ -96,7 +96,7 @@ export default function App() {
       const result = authMode === 'login'
         ? await authClient.signIn.email({ email: email.trim(), password })
         : await authClient.signUp.email({ name: email.trim().split('@')[0] || 'Pengguna', email: email.trim(), password });
-      if (result.error) setAuthError(result.error.message);
+      if (result.error) setAuthError(result.error.message || 'Permintaan autentikasi gagal.');
       else if (authMode === 'signup') setAuthNotice('Akun berhasil dibuat. Jika konfirmasi email diaktifkan, periksa kotak masuk Anda.');
     } catch (e) { setAuthError(e instanceof Error ? e.message : 'Autentikasi gagal.'); }
     finally { setAuthSubmitting(false); }
